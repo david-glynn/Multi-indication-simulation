@@ -1,0 +1,3 @@
+Parameter_set,Models,Times,Target_OS,Prop_OS_event_non_target,Prop_OS_event_target,Prop_sample_size_non_target,Prop_sample_size_target,Outlier,log_lambda_01_mu,log_lambda_02_mu,log_delta_mu,log_M_01_mu,log_lambda_01_CV_w,log_lambda_02_CV_w,log_delta_CV_w,log_M_01_CV_w,log_lambda_01_CV_bw,log_lambda_02_CV_bw,log_delta_CV_bw,log_M_01_CV_bw,lambda_01_outlier_SD,lambda_02_outlier_SD,delta_outlier_SD,M_01_outlier_SD,log_lambda_01_outlier_CV_w,log_lambda_02_outlier_CV_w,log_delta_outlier_CV_w,log_M_01_outlier_CV_w
+3030,all_minus_mix,early,both,0.8,0.8,1,1,TRUE,-2.332491181,-4.585367559,1.843915898,-0.511,0,0,0,0,0,0,0,0.5,0,0,0,6,0,0,0,0
+3047,all_minus_mix,early,both,0.8,0.8,1,1,TRUE,-2.332491181,-4.585367559,1.843915898,-0.511,0,0,0,0.5,0,0,0,0.07,0,0,0,6,0,0,0,0.5
