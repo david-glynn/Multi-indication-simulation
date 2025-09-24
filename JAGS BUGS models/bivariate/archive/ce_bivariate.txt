@@ -1,0 +1,43 @@
+model
+{
+    for (i in 1:nStudies) {
+
+        Y[i, 1:2] ~ dmnorm(Mu[i, 1:2], prec.Y[i, 1:2, 1:2])
+
+	      prec.Y[i, 1:2, 1:2] <- inverse(Sigma.Y[i, 1:2, 1:2])
+        Sigma.Y[i, 1, 1] <- pow(sigma1[i], 2)
+        Sigma.Y[i, 2, 2] <- pow(sigma2[i], 2)
+        Sigma.Y[i, 1, 2] <- sqrt(Sigma.Y[i, 1, 1]) * sqrt(Sigma.Y[i, 2, 2]) * rhoW
+        Sigma.Y[i, 2, 1] <- sqrt(Sigma.Y[i, 1, 1]) * sqrt(Sigma.Y[i, 2, 2]) * rhoW
+        
+	      Mu[i, 1] ~ dnorm(0.00000E+00, 0.001)
+        Mu[i, 2] ~ dnorm(eta[i], prec.mu[indicationNum[i]])
+        eta[i] <- lambda0[indicationNum[i]] + (lambda1[indicationNum[i]] * Mu[i, 1])
+        
+        resdev[i] <- inprod(pres[i, 1:2], res[i, 1:2])
+        for (k in 1:2) {
+            res[i, k] <- Y[i, k] - Mu[i, k]
+            pres[i, k] <- inprod(prec.Y[i, k, 1:2], res[i, 1:2])
+        }
+    }
+    
+    totresdev <- sum(resdev[])
+    
+    for (j in 1:nIndications) {
+        lambda0[j] <- mLambda0
+        lambda1[j] <- mLambda1
+        prec.mu[j] <- 1/pow(psi[j], 2)
+        psi[j] <- mPsi
+    }
+    
+    rhoW ~ dunif(0.00000E+00, 0.999)
+    mLambda0 ~ dnorm(0.00000E+00, 0.001)
+    mLambda1 ~ dnorm(0.00000E+00, 0.001)
+    mPsi ~ dnorm(0.00000E+00, 4)  T(0.00000E+00, )
+    
+    for (k in 1:nPredictions) {
+        truePfs[k] ~ dnorm(obsPfs[k], precPfs[k])
+        precPfs[k] <- pow(sePfs[k], -2)
+        predOs[k] <- lambda0[predIndicationNum[k]] + (lambda1[predIndicationNum[k]] *truePfs[k])
+    }
+}
